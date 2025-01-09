@@ -1,0 +1,52 @@
+\section{Introduction}
+\label{sec:introduction}
+
+% state the learning objective 
+The objective of this laboratory assignment is to study a circuit with various resistors and a capacitor. Besides the RC part of the circuit, we were also 
+capable of studying the circuit evolution due to a sinosoidal voltage source, adding to a current controlled voltage source and a voltage controlled current source, 
+all represented in fig. \ref{fig:rc}. \\
+Using the tool Octave for a theoretical analysis of the circuit and creating a computed simulation with the tool Ngpice we were able to compare the data obtained by 
+studying this complex circuit.
+
+Because of the sinosoidal voltage source,
+
+\vspace{-13mm}
+\begin{multicols}{2}
+    \begin{equation}
+        v_s(t) = V_s \times u(-t) + sin(2\pi ft) \times u(t)
+    \end{equation}\break
+    \begin{equation}
+        u(t) = \begin{cases} 0 & t < 0 \\ 1 & t \ge 0 \end{cases}
+    \end{equation}
+\end{multicols}
+
+various time stamps were evaluated.
+Resorting to Ohm's Law and the Kirchhoff Current Law (KCL) for the various solutions in time it was possible to get all the information contained in the circuit. 
+
+In Section~\ref{sec:analysis}, a theoretical analysis of the circuit is presented, explaining every point. 
+In Section~\ref{sec:simulation}, the circuit is analysed by simulation, and the results are compared to the theoretical results obtained in
+Section~\ref{sec:analysis}. The conclusions of this study are outlined in Section~\ref{sec:conclusion}.
+
+
+\begin{figure}[h] 
+    \centering
+    \includegraphics[width=0.85\linewidth]{../doc/rc.pdf}
+    \caption{Representation of the circuit analysed}
+    \label{fig:rc}
+\end{figure}
+    
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c|c|c}  
+        \hline
+        \input{../mat/datatab1.tex}
+    \end{tabular}
+    \begin{tabular}{c|c|c|c|c|c}
+        \hline
+        \input{../mat/datatab2.tex} 
+    \end{tabular}
+    \caption{Given Data Rounded Values}
+    \label{tab:data}
+\end{table}
+

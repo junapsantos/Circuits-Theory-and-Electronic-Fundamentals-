@@ -1,0 +1,139 @@
+\section{Simulation Analysis}
+\label{sec:simulation}
+The Ngspice Software was used to simulate the circuit. Take note that $gb$
+represents $I_b$ and $id = I_d$, $v(i)$ represents the voltage in node i.
+It was used the same Node nomenclature as in sections before with two excpetion: 
+Node 9 was added to the circuit between Node 7 and Node 8 in order to sence the current
+in that point of the circuit as 0V voltage source and node 4 was named node 0. (Resistor 7 from now on is placed
+between Node 8 and Node 9, Virtual 0V voltage source is placed between Node 7 and Node 8).
+
+
+\subsection{Exercise 1}
+In this section we simulate the operating point for $t<0$ in order to obtain the
+voltages in all nodes and the currents in all branches.
+The table \ref{tab:op1} shows the results.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab1}
+  \end{tabular}
+  \vspace{20mm}
+  \caption{Operating point. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op1}
+\end{table}
+
+\newpage
+
+\subsection{Exercise 2}
+Next we simulate the operating point for vs(0)=0, replacing the capacitor with  with a 
+voltage source Vx = V(6)-V(8). Take note that V(6) and V(8) are the voltages in nodes 6 and 8 as obtained in Exercise 1.
+The reason for making this step is to find the initial conditions for the time-dependent circuit
+that will be analysed in the following exercises.
+Please note that voltage values with e-14 and e-15 exponent should represent zero (as expected).
+Comparing the order of magnitude of this values with the other voltages playing in this circuit it totally neglegible.
+The table \ref{tab:op2} shows the results.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab2}
+  \end{tabular}
+  \vspace{20mm}
+  \caption{Operating point. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op2}
+\end{table}
+
+\newpage
+
+\subsection{Exercise 3}
+For this exercise we Simulate the natural response of the circuit 
+using the boundary conditions V(6) and V(8) as obtained in Exercise 2.
+We used Ngpice’s transient analysis mode to get v6(t) in the interval [0, 20] ms.
+The figure \ref{fig:trans3} plots the result.
+
+  \begin{figure}[ht] \centering
+  \caption{Natural solution, $v_{6n}(t)$ ($V$) in the interval $[0,20]ms$}
+  \includegraphics[width=0.6\linewidth]{trans3.pdf}
+  \label{fig:trans3}
+  \end{figure}
+The voltage decays exponentially as expected in theory.
+\newpage
+
+\subsection{Exercise 4}
+In Exercise 4 we Simulate the natural and forced response on node 6 by repeating Exercise  3 
+with vs(t) as given in the introduction of this report and f=1kHz. 
+The figure \ref{fig:trans4} shows both the stimulus and the response plots.
+
+  \begin{figure}[ht] \centering
+  \caption{Natural solution, $v_{6n}(t)$ and $V$ in the interval $[0,20]ms$}
+  \includegraphics[width=0.6\linewidth]{trans4.pdf}
+  \label{fig:trans4}
+  \end{figure}
+
+\newpage
+
+\subsection{Exercise 5}
+Lastly we simulate the frequency response in node 6.
+Take note that the frequency is in logscale, magnitude in dB and phase in degrees.
+The simulation is performed for the frequency range 0.1 Hz to 1 MHz.
+In figure \ref{fig:trans5db} we plot the amplitudes of $V_{6}$,$V_{s}$ and $V_{c}$ in dB
+as function of the frequency.
+These values are represented respectively as db(v(6)), db(v(1)) and db(v(6)-v(8)).
+
+On the other side, in figure \ref{fig:trans5ph} we plot the phase of $V_{6}$,$V_{s}$ and $V_{c}$ in degrees
+as function of the frequency.
+These values are represented respectively as ph(v(6)), ph(v(1)) and ph(v(6)-v(8)).
+
+
+  \begin{figure}[ht] \centering
+  \caption{Amplitudes in dB of $V_{6}$,$V{s}$ and $V_{c}$ along the frequency range: 0.1Hz to 1 MHz }
+  \includegraphics[width=0.6\linewidth]{trans5db.pdf}
+  \label{fig:trans5db}
+  \end{figure}
+
+  $V_{s}$ is always zero because it's the voltage source and it keeps its amplitude constant along
+  all the frequencies. The value is zero because the units are presented in dB, the base 10 
+  logarithm of the amplitude in Volts, i.e. it corresponds to 1V. The reason for the evolution of the other curves is already
+  explained in section \ref{sec:6} of the theoretical analysis.
+
+  \newpage
+
+  \begin{figure}[ht] \centering
+  \caption{Phase in degrees of $V_{6}$,$V{s}$ and $V_{c}$ along the frequency range: 0.1Hz to 1 MHz }
+  \includegraphics[width=0.8\linewidth]{trans5ph.pdf}
+  \label{fig:trans5ph}
+  \end{figure}
+
+  As ploted, all of the phases start at 0 degrees with the frequency value being 0.1Hz.
+  The reason for the evolution of the other curves is already explained in section \ref{sec:6} of the theoretical analysis.
+
+\newpage
+%\begin{table}[h]
+ % \centering
+  %\begin{tabular}{|c|c|}
+   % \hline    
+    %{\bf Name} & {\bf Value [A or V]} \\ \hline
+    %\input{../sim/op_tab}
+%  \end{tabular}
+%  \vspace{20mm}
+%  \caption{Operating point. A variable preceded by @ is of type {\em current}
+%    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+%    Volt.}
+%  \label{tab:op}
+%\end{table}
+
+
+
+
+
+
+

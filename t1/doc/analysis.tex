@@ -1,0 +1,148 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
+theoretically in two different ways: Mesh Analysis and Node Analysis. After obtaining circuit values, to confirm the coherence between the results from these two analysis,
+the voltage and current values were also calculated using Ohm's Law $R = \frac{V}{I}$ and the definition of current/voltage controled voltage/current sources: 
+$V_c = K_c \times I_c$ and $I_b = K_b \times V_b$, repectively.
+
+
+\subsection{Mesh Analysis}
+This type of circuit analysis implies that we atribuite a current (with arbitrary direction) to each elementar mesh. 
+Since our circuit has four elementar meshes, we assingned $I_a$, $I_b$, $I_c$ and $I_d$ as depicted in Figure \ref{fig:rc}. 
+For the last three currents, the directions were specially choosen so that they had the same signal as the currents from the 
+current generators (b and d) and the scheme given. \\
+Since the value of $I_d$ was known, we found 3 linaerly independent equations to find the values of the missing currents 
+and derived the following matrix:
+
+\begin{gather}
+    \begin{bmatrix}
+       R_1 + R_4 + R_3 & R_3 & R_4 \\
+       R_4 & 0 & R_6 + R_7 + R_4 - K_c \\
+       K_b \times R_3 & K_b \times R_3 - 1 & 0 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        I_a \\
+        I_b \\
+        I_c \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        V_a \\
+        0 \\
+        0 \\
+    \end{bmatrix}
+\end{gather}
+
+The first two lines of the matrix are directly derived from analysing the path of the current in the respective elementar mesh. 
+The third line comes from finding a relation between the currents $I_b$ and $I_a$,  substituting voltage $V_b$ that goes through the resistor 3:
+\begin{equation}
+    I_b = K_b \times V_b = \Leftrightarrow I_b = K_b \times R_3 \times (I_a + I_b) \Leftrightarrow I_a(K_b R_3) + I_b(K_b R_3 -1) = 0
+\end{equation}
+
+This system of linear equations was solved using the tool Octave and the values obtained can be consulted in Table \ref{tab:oct}.
+
+
+\subsection{Node Analysis}
+The Node Analysis was based on Kirchhoff Current Law (KCL) and Ohm Law.
+From node 1 to  4 and 6 to 7 KCL was applied and resulted in an equation for each node.
+
+In order to obtain the equations of nodes 5 and 8, since between them there is a current-controlled voltage source, it isn't possible to write the node equation from KCL and we are facing a special case in this node analysis. 
+
+This case was solved with the help of Supernode analysis. This theoretical concept considers two nodes as just one, in between those nodes it must be placed a voltage source. In this particular case, we first conclude that the voltage difference between node 5 and node 8 is V\textsubscript{c}. Then, we consider nodes 5 and 8 as just one node and apply Kirchhoff Current Law since the current that leaves node 5 is the current that arrives at 8 hence the total current in the new node is null. Now, we are able to apply the KCL to the supernode. 
+
+From the supernode analysis, we were able to find two equations
+
+\begin{equation}
+V5 - V8 = V\textsubscript{c} 
+\end{equation}
+
+in which Vc can be rewritten as 
+
+\begin{equation}
+V\textsubscript{c} = Kc\times Ic = Kc\times (V7-V6)/R6
+\end{equation}
+
+In addition, by applying KCL to the supernode we get
+
+\begin{equation}
+\frac{V5 - V6}{R4} + \frac{V5 - V2}{R3} + \frac{V5 - V4}{R5} + \frac{V8 - V7}{R7} - Id = 0  
+\end{equation}
+
+Given that the ground was placed at node 6 the voltage in that node is null (V6 = 0 V).
+
+The following matrix system has the information of the equations in all the nodes and its resolution leads us to the voltage value in each node (Table \ref{tab:oct}). 
+
+Gi represents 1/Ri and Vi is the voltage in node i.
+
+\begin{gather}
+    \begin{bmatrix}
+        1       &   0       & 0     &   0 & 0 &0 & 0. \\
+        -G1      &   G1+G2+G3       & -G2     &   0 & -G3 &0 & 0  \\
+        0       &   -G2-Kb       & G2     &   0 & Kb &0 & 0  \\   
+        0 & Kb & 0 & G5 & -Kb-G5 & 0 & 0  \\
+        0       &   0       & 0     &   0 & 1 & Kc \times G6 & -1  \\
+        0       &   0       & 0     &   0 & 0 & G6+G7 & -G7  \\
+        0 & -G3 & 0 & -G5 & G3+G4+G5 & -G7&G7 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        V1     \\
+        V2     \\
+        V3     \\
+        V4     \\
+        V5     \\
+        V7     \\
+        V8     \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        Va     \\
+        0      \\
+        0      \\
+        Id     \\
+        0      \\
+        0      \\
+        -Id    \\
+    \end{bmatrix}
+\end{gather}
+
+\subsection{Values and Comparison}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|r|}
+      \hline    
+      {\bf Name} & {\bf Value [A or V]} \\ \hline
+      \input{../mat/octvalues.tex}
+    \end{tabular}
+    \caption{Table with values of current (A) and voltage (V) obtained from mesh and node analysis of the circuit using the tool Octave.}
+    \label{tab:oct}
+\end{table}
+
+
+Calculating voltages using the currents from mesh analysis to compare with node analysis, we get:
+
+\begin{equation}
+    V_b = R_3 \times (I_a+I_b) = \frac{I_b}{K_b} = -0.0283956 V = V_2 - V_5 (Table \ref{tab:oct})
+\end{equation}
+
+\begin{equation}
+    V_c = K_c \times I_c = 7.868213 V = V_5 - V_7 (Table \ref{tab:oct})
+\end{equation}
+
+
+In order to compare the voltage values to the mesh analysis, the currents were determined by the following equations
+
+\begin{equation}
+I\textsubscript{a} = \frac{V1 - V2}{R1} = 1.936\times 10\textsuperscript{-4} A
+\end{equation}
+
+\begin{equation}
+I\textsubscript{b} = Kb \times (V2-V5) = -2.0289\times 10\textsuperscript{-4} A
+\end{equation}
+
+\begin{equation}
+I\textsubscript{c} = \frac{V7}{R6} = 9.6721 \times 10\textsuperscript{-4} A
+\end{equation}
+
+These calculations make it possible to conclude that the two analysis are equivelent and lead to the same results.

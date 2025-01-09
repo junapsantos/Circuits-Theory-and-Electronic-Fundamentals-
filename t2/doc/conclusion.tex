@@ -1,0 +1,82 @@
+\vspace{-5mm}
+\section{Values and comparison}
+
+
+\begin{table}[h]
+    \vspace{-5mm}
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value } \\ \hline
+    \input{../sim/op_tab1.tex}
+    \end{tabular}
+    \vspace{-2mm}
+    \caption{Simulated Operating Point for $t < 0$}
+    \label{ngspice}
+    }
+    \hfill
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        {\bf Name} & {\bf Value } \\ \hline
+        \input{../mat/node1.tex}
+    \end{tabular}
+    \vspace{-2mm}
+    \caption{Theoretical Operating Point for $t < 0$}
+    \label{analise teorica - ponto 1}
+    }
+\end{table}
+
+
+\begin{table}[h]
+    \vspace{-5mm}
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value } \\ \hline
+    \input{../sim/op_tab2.tex}
+    \end{tabular}
+    \vspace{-2mm}
+    \caption{Simulated Operating Point for $t = 0$}
+    \label{ngspice}
+    }
+    \hfill
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        {\bf Name} & {\bf Value } \\ \hline
+        \input{../mat/node2.tex}
+    \end{tabular}
+    \vspace{-2mm}
+    \caption{Theoretical Operating Point for $t = 0$}
+    \label{analise teorica - ponto 2}
+    }
+\end{table}
+
+\vspace{-2mm}
+Considering the exponents -18 and -15 as zero, the values from both tables, obtained with ngspice and octave, are equal, considering only some difference in the signals
+of some voltages and currents explained by the nodal direction chosen in the declaration of the components in ngspice.
+Every significant figure of ngspice presented in the tables is in order with the numbers obtained from octave, except as mentioned before, the cases where they equal zero.
+
+
+\newpage
+
+\section{Conclusion}
+\label{sec:conclusion}
+\vspace{10mm}
+In this laboratory assignment the objective of analysing a RC circuit has been achieved. 
+Static, time and frequency analyses have been performed both
+theoretically using the Octave maths tool and by circuit simulation using the
+Ngspice tool.
+The results obtained in the Theoretical section by octave in both the nodal and mesh theoretical analysis matched each other. 
+The simulation results matched the theoretical results very closely too.
+Graphically there's no distinction between the plots made in ngspice and octave except GUI properties.
+There are some small numerical differences in table results comparing again octave with ngspice, but thats due to the fact that
+the number of decimal places considered by this two programs is different.
+We should emphasize that it was crucial to use the theoretical tool of Equivalent Resistor from the Thevenin's Theorem
+to drastically simplify our study of the circuit behaviour.
+

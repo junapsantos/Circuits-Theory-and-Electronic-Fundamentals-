@@ -1,0 +1,54 @@
+\vspace{-5mm}
+\section{Values and comparison}
+
+
+The value obtained for the exit DC Voltage (tab. \ref{tab:teovalues}) differs from the one obtained in the simulation 
+(tab. \ref{tab:simvalues}) by only $9.71 mV$. Although we used the same number of diodes and the same resistance value for
+ the resistor $R$, we still weren't able to perfectly synchronize the two. Since the model of the diodes is different in 
+ the two programs, that must be the reason for the difference between the voltage regulator effect. The major difference
+ is between the ripple in both theoretical and simulation analysis and this is due to the approximation explained in section
+  \ref{subsec:2} when calculating the value for the ripple.
+
+ \vspace{5mm}
+ \begin{table}[h]
+    %\vspace{-5mm}
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline    
+        {\bf Quantities} & {\bf Volts / MU} \\ \hline
+        \input{../sim/values_tab.tex}
+    \end{tabular}
+    \vspace{-2mm}
+    \caption{{\bf{Simulation}} Average Voltage Value of DC Output (V). Deviation value (V). Ripple Value (Max-Min) (V). Cost of Circuit (MU). Merit of Circuit.}
+    \label{ngspice}
+    }
+    \hfill
+    \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+      \input{../mat/data.tex}
+    \end{tabular}
+    \vspace{-2mm}
+    \caption{{\bf{Theoretical}} Value of DC Output (V). Ripple Value (V). Deviation value (V). }
+    \label{analise teorica - ponto 2}
+    }
+\end{table}
+
+\section{Conclusion}
+\label{sec:conclusion}
+\vspace{10mm}
+In this laboratory assignment the objective of simulating an ACDC converter has been achieved. 
+Time analysis has been performed both
+theoretically using the Octave maths tool and by circuit simulation using the
+Ngspice tool.
+The results obtained in Octave and Ngspice matched each other with a considerable error. 
+Graphically there are little distinctions between the plots made in ngspice and octave.
+The differences are due to the fact that
+the diode models weren't compatible in the two programs.
+In order to solve the complex non linear equations of the theoretical analysis some aproximations were made,
+that were explained in the Analysis Section.
+We also should note that in ngspice simulation we had to made the transient analysis starting at 10 seconds
+so we could observe only the stationary part.
+Right now we are able to build our own AC adapter to charge our devices.

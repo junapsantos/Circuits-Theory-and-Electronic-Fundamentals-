@@ -1,0 +1,46 @@
+\section{Simulation Analysis}
+\label{sec:simulation}
+\vspace{10mm}
+\subsection{Operating Point Analysis}
+The Ngspice Software was used to simulate the circuit. Considering the simplicity of the circuit only
+Operating Point Analysis was performed.
+There was the need to add a virtual voltage source which
+would sense the controlling current $I_c$. For that reason, node number 7 was virtually created between node 6 and node 8.
+Table~\ref{tab:op} shows the simulated operating point results for the circuit
+under analysis. As it can be seen, there are no differences compared to the theoretical analysis results. Take note that $gb$
+represents $I_b$ and $id = I_d$, $v(i)$ represents the voltage in node i. Once there's an extra node, node labelling has been changed.
+
+The nodes are numbered according to figure~\ref{fig:rcsim}. The plus and minus signs in the resistors terminals
+are used to evidence the current direction choosen for each branch, i.e., it's assumed a priori 
+the direction of the current pointing from plus to minus sign. For the other components it's used the current direction
+according to the arrow presented or the plus/minus signs already drawn in the figure~\ref{fig:rc}. 
+
+
+\vspace{10mm}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/op_tab}
+  \end{tabular}
+  \vspace{20mm}
+  \caption{Operating point. A variable preceded by @ is of type {\em current}
+    and expressed in Ampere; other variables are of type {\it voltage} and expressed in
+    Volt.}
+  \label{tab:op}
+\end{table}
+
+
+
+\begin{figure}[ht] \centering
+  \includegraphics[width=1.\linewidth]{rcsim.pdf}
+  \caption{Ngspice circuit scheme representation}
+  \label{fig:rcsim}
+\end{figure}
+
+
+
+
+

@@ -1,0 +1,26 @@
+circuito ex1
+* NGSPICE simulation script
+* BJT amp with feedback
+*
+
+* forces current values to be saved
+.options savecurrents
+
+.include ../mat/octsim1.cir
+.control
+
+op
+
+echo "********************************************"
+echo  "Operating point Analysis"
+echo "********************************************"
+echo "op_TAB"
+print all
+echo "op_END"
+
+
+
+quit
+.endc
+
+.end

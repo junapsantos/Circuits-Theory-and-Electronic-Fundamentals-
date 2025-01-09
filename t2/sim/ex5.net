@@ -1,0 +1,37 @@
+ex 5
+* NGSPICE simulation script
+* BJT amp with feedback
+*
+
+* forces current values to be saved
+.options savecurrents
+
+.include ../mat/octsim5.cir
+
+.control
+
+set units=degrees
+
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+echo "********************************************"
+echo  "Frequency analysis"
+echo "********************************************"
+
+ac dec 10 0.1 1MEG
+
+hardcopy trans5db.ps db(v(6)) db(v(1)) db(v(6)-v(8))
+echo trans5db_FIG
+hardcopy trans5ph.ps ph(v(6)) ph(v(1)) ph(v(6)-v(8))
+echo trans5ph_FIG
+
+quit 
+.endc 

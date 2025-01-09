@@ -1,0 +1,115 @@
+circuito conversor acdc
+* NGSPICE simulation script
+* forces current values to be saved
+.options savecurrents
+
+
+******************************************
+* input voltage source
+vin 1 0 0.0 sin (0.0 13.0855 50); 10 espiras 1:10
+*vS 1 0 0 sin(0 14 100)
+*vS 1 0 0 sin(0 5 400)
+
+*Gb a b a b 0.05
+*Hc 1 0 vin 0.05
+
+
+* passa-alto ordem 1 a entrada 
+Ci 2 4 8u
+Ri 2 3 13.6k
+
+* rectifier
+Dp1 1 2 Default
+Dp2 4 1 Default
+Dp3 4 0 Default
+Dp4 0 2 Default
+
+
+*R5 50 4 1k
+
+
+Dp5 3 5 Default
+Dp6 5 6 Default
+Dp7 6 7 Default
+Dp8 7 8 Default 
+Dp9 8 9 Default
+Dp10 9 10 Default
+Dp11 10 11 Default
+Dp12 11 12 Default
+Dp13 12 13 Default
+Dp14 13 14 Default
+Dp15 14 15 Default
+Dp16 15 16 Default
+Dp17 16 17 Default
+Dp18 17 18 Default
+Dp19 18 19 Default
+Dp20 19 20 Default
+Dp21 20 21 Default
+Dp22 21 22 Default
+Dp23 22 23 Default
+Dp24 23 24 Default
+Dp25 24 25 Default
+Dp26 25 26 Default
+Dp27 26 27 Default
+Dp28 27 28 Default
+Dp29 28 29 Default
+Dp30 29 4 Default
+*Dp31 30 4 Default
+*Dp32 31 4 Default
+
+
+
+
+
+.model Default D
+.op
+.end
+
+
+.control
+
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
+
+******************************************
+* analise temporal
+tran 5e-4 10.2 10 2e-4
+* tran 1e-5 10e-3
+
+plot  v(3)-v(4)
+
+******************************************
+hardcopy acdc.ps v(3)-v(4)
+echo acdc_FIG
+hardcopy envelope.ps v(2)-v(4)
+echo envelope_FIG
+hardcopy deviation.ps v(3)-v(4)-12
+echo deviation_FIG 
+* hardcopy vospice400.ps v(1) v(2)
+
+let cost = 13.6+8+3
+
+let average = mean(v(3)-v(4))
+let ripple = maximum(v(3)-v(4))-minimum(v(3)-v(4))
+let deviation = abs(12-average)
+let merit = 1/(cost*(ripple + deviation + 1e-6))
+
+echo  "values_TAB"
+print average
+print deviation
+print ripple
+print cost
+print merit
+echo  "values_END"
+
+
+.endc
+

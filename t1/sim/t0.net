@@ -1,0 +1,43 @@
+circuito do lab 1 tcfe
+* NGSPICE simulation script
+* BJT amp with feedback
+*
+
+* forces current values to be saved
+.options savecurrents
+
+* supply voltage
+Vcc 1 0 dc 5.03865114929
+
+*Resistors
+R1 1 2 1.01072152255k
+R2 2 3 2.0468229318k
+R3 2 5 3.05917032304k
+R4 0 5 4.1965026363k
+R5 5 4 3.07879619547k
+R6 0 6 2.08425994597k
+R7 7 8 1.01419841564k
+
+*More components (Id,Ib,Vc)
+Id 8 4 dc 1.01596988715m
+Gb 4 3 2 5 7.14516521228m
+
+V2 6 7 dc 0
+Hc 5 8 v2 8.13498446601k
+.control
+
+op
+
+echo "********************************************"
+echo  "Operating point Analysis"
+echo "********************************************"
+echo "op_TAB"
+print all
+echo "op_END"
+
+
+
+quit
+.endc
+
+.end
